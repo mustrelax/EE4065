@@ -25,4 +25,4 @@ The repository is organized into separate folders for each assignment and projec
 
 | Assignment  | Description                                                                                             | Report Link                                                                        |
 |:------------|:--------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------|
-| **Homework 1** | Loading a grayscale image into memory and applying fundamental intensity transformations (Negative, Thresholding, Gamma, etc.). | [View Report](Homework 1/EE4065_Homework_1_Report.pdf)                               |
+| **Homework 1** | Loading a grayscale image into memory and applying fundamental intensity transformations (Negative, Thresholding, Gamma, etc.). | [View Report](Homework 1/report_EE4065_HW1.pdf)                               |
