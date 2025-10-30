@@ -20,3 +20,9 @@ Foundations of embedded image processing systems, real-time application rules, c
 ## Repository Structure
 
 The repository is organized into separate folders for each assignment and project. Each folder contains the source code, reports, and any other relevant files.
+
+## Assignments
+
+| Assignment  | Description                                                                                             | Report Link                                                                        |
+|:------------|:--------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------|
+| **Homework 1** | Loading a grayscale image into memory and applying fundamental intensity transformations (Negative, Thresholding, Gamma, etc.). | [View Report](Homework 1/EE4065_Homework_1_Report.pdf)                               |
