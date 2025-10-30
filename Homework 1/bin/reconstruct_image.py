@@ -7,7 +7,7 @@ IMAGE_HEIGHT = 120
 
 def reconstruct_from_bin(bin_filename):
     if not os.path.exists(bin_filename):
-        print(f"Uyarı: '{bin_filename}' not found! Skipping...")
+        print(f"Warning: '{bin_filename}' not found! Skipping...")
         return
 
     print(f"'{bin_filename}' processing...")
