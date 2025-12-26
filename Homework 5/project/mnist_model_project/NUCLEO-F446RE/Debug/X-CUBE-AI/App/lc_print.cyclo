@@ -1,0 +1,5 @@
+../X-CUBE-AI/App/lc_print.c:50:12:_write_string	7
+../X-CUBE-AI/App/lc_print.c:78:12:_write_number	17
+../X-CUBE-AI/App/lc_print.c:146:19:_write_double	12
+../X-CUBE-AI/App/lc_print.c:208:20:_getChar	1
+../X-CUBE-AI/App/lc_print.c:213:5:vlc_print	32

@@ -1,0 +1,205 @@
+ST Edge AI Core v3.0.0-20426 123672867
+Created date          : 2025-12-26 18:10:28
+Parameters            : generate --workspace /tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai --output /tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai/output --quiet --split-weights --target stm32f4 --name network --optimization balanced --model mnist_model.tflite --memory-pool /tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai/mempools-board.json --memory-pool /tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai/mempools-board.json
+
+Exec/report summary (generate)
+--------------------------------------------------------------------------------------------------------------------
+model file         :   /tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/mnist_model.tflite           
+type               :   tflite                                                                                       
+c_name             :   network                                                                                      
+compression        :   lossless                                                                                     
+options            :   allocate-inputs, allocate-outputs, multi-heaps, split-weights, use-lite-runtime, use-st-ai   
+optimization       :   balanced                                                                                     
+target/series      :   stm32f4                                                                                      
+memory pool        :   /tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai/mempools-board.json      
+workspace dir      :   /tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai                          
+output dir         :   /tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai/output                   
+model_fmt          :   float                                                                                        
+model_name         :   mnist_model                                                                                  
+model_hash         :   0x3205fd250fa41eda85c000b395749dd7                                                           
+params #           :   11,910 items (17.23 KiB)                                                                     
+--------------------------------------------------------------------------------------------------------------------
+input 1/1          :   'serving_default_keras_tensor0', f32(1x7), 28 Bytes, activations                             
+output 1/1         :   'nl_3', f32(1x10), 40 Bytes, activations                                                     
+macc               :   12,260                                                                                       
+weights (ro)       :   47,640 B (46.52 KiB) (6 segments)                                                            
+activations (rw)   :   800 B (800 B) (1 segment) *                                                                  
+ram (total)        :   800 B (800 B) = 800 + 0 + 0                                                                  
+--------------------------------------------------------------------------------------------------------------------
+(*) 'input'/'output' buffers are allocated in the activations buffer
+ 
+ Memory-pools summary (activations/ domain)
+ ---------------------- ---- ------------------------ --------- 
+ name                   id   used                     buffer#   
+ ---------------------- ---- ------------------------ --------- 
+ POOL_0_RAM             0    800 B (0.7%)             7         
+ gemm_0_weights_array   1    2.73 KiB (280000.0%)     1         
+ gemm_0_bias_array      2    400 B (40000.0%)         1         
+ gemm_1_weights_array   3    39.06 KiB (4000000.0%)   1         
+ gemm_1_bias_array      4    400 B (40000.0%)         1         
+ gemm_2_weights_array   5    3.91 KiB (400000.0%)     1         
+ gemm_2_bias_array      6    40 B (4000.0%)           1         
+ ---------------------- ---- ------------------------ --------- 
+
+Model name - mnist_model
+------ ----------------------------------------- --------------- --------------- -------- ------------------------------- --- ------------------ ------------------ ---------------------------- 
+m_id   layer (type,original)                     oshape          param/size          macc                    connected to   | c_size             c_macc             c_type                       
+------ ----------------------------------------- --------------- --------------- -------- ------------------------------- --- ------------------ ------------------ ---------------------------- 
+0      serving_default_keras_tensor0 (Input, )   [b:1,c:7]                                                                  | +3,200(+100.0%)    +900(+100.0%)      Dense_/Nonlinearity_[0, 1]   
+       arith_constant1 (Placeholder, )           [b:100,c:7]     700/2,800                                                  | -2,800(-100.0%)                       
+       arith_constant (Placeholder, )            [b:100]         100/400                                                    | -400(-100.0%)                         
+       gemm_0 (Gemm, FULLY_CONNECTED)            [b:1,c:100]                          800   serving_default_keras_tensor0   |                    -800(-100.0%)      
+                                                                                                          arith_constant1   | 
+                                                                                                           arith_constant   | 
+       nl_0_nl (Nonlinearity, FULLY_CONNECTED)   [b:1,c:100]                          100                          gemm_0   |                    -100(-100.0%)      
+------ ----------------------------------------- --------------- --------------- -------- ------------------------------- --- ------------------ ------------------ ---------------------------- 
+1      tfl_pseudo_qconst (Placeholder, )         [b:100,c:100]   10,000/10,000                                              | +30,400(+304.0%)   +10,200(+100.0%)   Dense_/Nonlinearity_[2, 3]   
+       arith_constant2 (Placeholder, )           [b:100]         100/400                                                    | -400(-100.0%)                         
+       gemm_1 (Gemm, FULLY_CONNECTED)            [b:1,c:100]                       10,100                         nl_0_nl   |                    -10,100(-100.0%)   
+                                                                                                        tfl_pseudo_qconst   | 
+                                                                                                          arith_constant2   | 
+       nl_1_nl (Nonlinearity, FULLY_CONNECTED)   [b:1,c:100]                          100                          gemm_1   |                    -100(-100.0%)      
+------ ----------------------------------------- --------------- --------------- -------- ------------------------------- --- ------------------ ------------------ ---------------------------- 
+2      arith_constant4 (Placeholder, )           [b:10,c:100]    1,000/4,000                                                | +40(+1.0%)         +1,010(+100.0%)    Dense_[4]                    
+       arith_constant3 (Placeholder, )           [b:10]          10/40                                                      | -40(-100.0%)                          
+       gemm_2 (Gemm, FULLY_CONNECTED)            [b:1,c:10]                         1,010                         nl_1_nl   |                    -1,010(-100.0%)    
+                                                                                                          arith_constant4   | 
+                                                                                                          arith_constant3   | 
+------ ----------------------------------------- --------------- --------------- -------- ------------------------------- --- ------------------ ------------------ ---------------------------- 
+3      nl_3 (Nonlinearity, SOFTMAX)              [b:1,c:10]                           150                          gemm_2   |                                       Nonlinearity_[o][5]          
+------ ----------------------------------------- --------------- --------------- -------- ------------------------------- --- ------------------ ------------------ ---------------------------- 
+model/c-model: macc=12,260/12,260  weights=17,640/47,640 +30,000(+170.1%) activations=--/800 io=--/0
+
+
+
+Generated C-graph summary
+------------------------------------------------------------------------------------------------------------------------
+model name            : mnist_model
+c-name                : network
+c-node #              : 6
+c-array #             : 13
+activations size      : 800 (1 segment)
+weights size          : 47640 (6 segments)
+macc                  : 12260
+inputs                : ['serving_default_keras_tensor0_output']
+outputs               : ['nl_3_output']
+
+C-Arrays (13)
+------ -------------------------------------- ------------- ------------------------ ------------- --------- 
+c_id   name (*_array)                         item/size     domain/mem-pool          c-type        comment   
+------ -------------------------------------- ------------- ------------------------ ------------- --------- 
+0      gemm_0_bias                            100/400       weights/gemm_0_bias      const float             
+1      gemm_0_output                          100/400       activations/POOL_0_RAM   float                   
+2      gemm_0_weights                         700/2800      weights/gemm_0_weights   const float             
+3      gemm_1_bias                            100/400       weights/gemm_1_bias      const float             
+4      gemm_1_output                          100/400       activations/POOL_0_RAM   float                   
+5      gemm_1_weights                         10000/40000   weights/gemm_1_weights   const float             
+6      gemm_2_bias                            10/40         weights/gemm_2_bias      const float             
+7      gemm_2_output                          10/40         activations/POOL_0_RAM   float                   
+8      gemm_2_weights                         1000/4000     weights/gemm_2_weights   const float             
+9      nl_0_nl_output                         100/400       activations/POOL_0_RAM   float                   
+10     nl_1_nl_output                         100/400       activations/POOL_0_RAM   float                   
+11     nl_3_output                            10/40         activations/POOL_0_RAM   float         /output   
+12     serving_default_keras_tensor0_output   7/28          activations/POOL_0_RAM   float         /input    
+------ -------------------------------------- ------------- ------------------------ ------------- --------- 
+
+C-Layers (6)
+------ ---------------- ---- --------------- ------- ------- ----------------------------------------- ------------------ 
+c_id   name (*_layer)   id   layer_type      macc    rom     tensors                                   shape (array id)   
+------ ---------------- ---- --------------- ------- ------- ----------------------------------------- ------------------ 
+0      gemm_0           0    Dense           800     3200    I: serving_default_keras_tensor0_output   f32(1x7) (12)      
+                                                             W: gemm_0_weights                         f32(100x7) (2)     
+                                                             W: gemm_0_bias                            f32(100) (0)       
+                                                             O: gemm_0_output                          f32(1x100) (1)     
+------ ---------------- ---- --------------- ------- ------- ----------------------------------------- ------------------ 
+1      nl_0_nl          0    Nonlinearity    100     0       I: gemm_0_output                          f32(1x100) (1)     
+                                                             O: nl_0_nl_output                         f32(1x100) (9)     
+------ ---------------- ---- --------------- ------- ------- ----------------------------------------- ------------------ 
+2      gemm_1           1    Dense           10100   40400   I: nl_0_nl_output                         f32(1x100) (9)     
+                                                             W: gemm_1_weights                         f32(100x100) (5)   
+                                                             W: gemm_1_bias                            f32(100) (3)       
+                                                             O: gemm_1_output                          f32(1x100) (4)     
+------ ---------------- ---- --------------- ------- ------- ----------------------------------------- ------------------ 
+3      nl_1_nl          1    Nonlinearity    100     0       I: gemm_1_output                          f32(1x100) (4)     
+                                                             O: nl_1_nl_output                         f32(1x100) (10)    
+------ ---------------- ---- --------------- ------- ------- ----------------------------------------- ------------------ 
+4      gemm_2           2    Dense           1010    4040    I: nl_1_nl_output                         f32(1x100) (10)    
+                                                             W: gemm_2_weights                         f32(10x100) (8)    
+                                                             W: gemm_2_bias                            f32(10) (6)        
+                                                             O: gemm_2_output                          f32(1x10) (7)      
+------ ---------------- ---- --------------- ------- ------- ----------------------------------------- ------------------ 
+5      nl_3             3    Nonlinearity    150     0       I: gemm_2_output                          f32(1x10) (7)      
+                                                             O: nl_3_output                            f32(1x10) (11)     
+------ ---------------- ---- --------------- ------- ------- ----------------------------------------- ------------------ 
+
+
+
+Number of operations per c-layer
+------- ------ ------------------------ -------- -------------- 
+c_id    m_id   name (type)                   #op           type 
+------- ------ ------------------------ -------- -------------- 
+0       0      gemm_0 (Dense)                800   smul_f32_f32 
+1       0      nl_0_nl (Nonlinearity)        100     op_f32_f32 
+2       1      gemm_1 (Dense)             10,100   smul_f32_f32 
+3       1      nl_1_nl (Nonlinearity)        100     op_f32_f32 
+4       2      gemm_2 (Dense)              1,010   smul_f32_f32 
+5       3      nl_3 (Nonlinearity)           150     op_f32_f32 
+------- ------ ------------------------ -------- -------------- 
+total                                     12,260 
+
+Number of operation types
+---------------- -------- ----------- 
+operation type          #           % 
+---------------- -------- ----------- 
+smul_f32_f32       11,910       97.1% 
+op_f32_f32            350        2.9% 
+
+Complexity report (model)
+------ ------------------------------- ------------------------- ------------------------- -------- 
+m_id   name                            c_macc                    c_rom                     c_id     
+------ ------------------------------- ------------------------- ------------------------- -------- 
+0      serving_default_keras_tensor0   ||                 7.3%   ||                 6.7%   [0, 1]   
+1      tfl_pseudo_qconst               ||||||||||||||||  83.2%   ||||||||||||||||  84.8%   [2, 3]   
+2      arith_constant4                 ||                 8.2%   ||                 8.5%   [4]      
+3      nl_3                            |                  1.2%   |                  0.0%   [5]      
+------ ------------------------------- ------------------------- ------------------------- -------- 
+macc=12,260 weights=47,640 act=800 ram_io=0
+ 
+ Requested memory size by section - "stm32f4" target
+ ------------------------------ ------- -------- ------ ----- 
+ module                            text   rodata   data   bss 
+ ------------------------------ ------- -------- ------ ----- 
+ network.o                        1,100       72      0     0 
+ NetworkRuntime1100_CM4_GCC.a     1,092        0      0     0 
+ lib (toolchain)*                   614       24      0     0 
+ ------------------------------ ------- -------- ------ ----- 
+ RT total**                       2,806       96      0     0 
+ ------------------------------ ------- -------- ------ ----- 
+ weights                              0   47,640      0     0 
+ activations                          0        0      0   800 
+ states                               0        0      0     0 
+ io                                   0        0      0     0 
+ ------------------------------ ------- -------- ------ ----- 
+ TOTAL                            2,806   47,736      0   800 
+ ------------------------------ ------- -------- ------ ----- 
+ *  toolchain objects (libm/libgcc*)
+ ** RT AI runtime objects (kernels+infrastructure)
+  
+  Summary - "stm32f4" target
+  -------------------------------------------------
+               FLASH (ro)     %*   RAM (rw)      % 
+  -------------------------------------------------
+  RT total          2,902   5.7%          0   0.0% 
+  -------------------------------------------------
+  TOTAL            50,542               800        
+  -------------------------------------------------
+  *  rt/total
+
+
+Generated files (5)
+---------------------------------------------------------------------------------------------- 
+/tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai/output/network_data.h      
+/tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai/output/network_data.c      
+/tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai/output/network.h           
+/tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai/output/network.c           
+/tmp/rootDir-5c0e057b-74ce-436b-b631-9fcc763ecfd2/NUCLEO-F446RE/.ai/output/network_details.h   
