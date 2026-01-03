@@ -1,0 +1,14 @@
+config load "C:\Users\hamitiya\AppData\Local\Temp\fb0b824d-9645-4aae-8dba-fa3c1d21e275\NUCLEO-F446RE.ioc"
+project toolchain STM32CubeIDE
+
+project set heapsize 0x800
+project set stacksize 0x2000
+set gpio parameters PA3 GPIO_PuPd GPIO_PULLUP
+set pin PA3 USART2_RX
+set pin PA2 USART2_TX
+set mode USART2 Asynchronous
+config save
+set ip parameters USART2 BaudRate 115200
+set gpio parameters PA3 GPIO_PuPd GPIO_PULLUP
+project generate
+exit
