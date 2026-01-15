@@ -31,5 +31,6 @@ The repository is organized into separate folders for each assignment and projec
 | **Homework 4** | Implementing handwritten digit recognition using Machine Learning models (Single Neuron & MLP) based on Hu Moments feature extraction.     | [View Report](Homework%204/report_EE4065_HW4.pdf) |
 | **Homework 5** | Embedding handwritten digit recognition from digital images and keyword spotting from audio signals | [View Report](Homework%205/report_EE4065_HW5.pdf) |
 | **Homework 6** | Embedding several CNN architectures such as ResnetV1 or MobileNetV1 trained by MNIST dataset. | [View Report](Homework%206/report_EE4065_HW6.pdf) |
+| **Final Project** | Implementation of several image processing questions on ESP32-Cam module. | [View Report](Final%20Project/report_EE4065_Final.pdf) |
 
 If you (somehow) can't reach the reports please use this [Google Drive](https://drive.google.com/drive/folders/1lbtkx9IobvnPha9nJLcwiy9KLaOAbK6P?usp=sharing) link
